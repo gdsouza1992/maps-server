@@ -16,25 +16,26 @@ class collectionClass(object):
       #   self.db.drop_collection("%s" % collection_name)
       #   self.collection = self.db.create_collection("%s" % collection_name)
 
-   def get_all_objects(self):
+   def find(self,filter=None):
       if self.total_docs() == 0:
          print "No Docs found Returning False"
          return False
+      if filter != None:
+        return list(self.collection.find('%s' % filter))
 
-      return self.collection.find()
+      return list(self.collection.find())
    
-   def insert(self,new_doc):
+   def insert_many(self,new_doc):
       #if type(new_doc) is not dict:
       #   raise Exception('document type should be dict')
       
       self.collection.insert_many(new_doc)
      
-   def total_docs(self):
+   def count(self):
       return self.collection.count()
    
-   def sort(self,key,direction="Ascending"):
-      if direction.lower() == "descending":
-         return self.collection.find().sort("%s" % key,pymongo.DESCENDING)
-      else:
-         return self.collection.find().sort("%s" % key,pymongo.ASCENDING)
-
+   def sortAscending(self,key):
+      return list(self.collection.find().sort("%s" % key,1))
+   
+   def sortDescending(self,key)
+      return list(self.collection.find().sort("%s" % key,-1))
