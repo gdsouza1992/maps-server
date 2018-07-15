@@ -3,6 +3,11 @@ from flask_pymongo import PyMongo
 
 from config import config_by_name
 
+collection_map = {
+    "article":"demo-article",
+    "place":"demo-place",
+    "user":"demo-user"
+}
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -21,4 +26,7 @@ def create_app(config_name):
 
     return app, mongo
 
-create_app("dev")
+def get_collection_map(key):
+    return collection_map[key]
+
+# create_app("dev")
