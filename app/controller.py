@@ -81,18 +81,17 @@ def signin():
     #email_id = json_data.get('email')
     # password = json_data.get('password')
     # return jsonify(status="Bad"), 500
-    user_obj = CollectionClass(mongo.db[collection]).find_one({'username': username})
-    email_obj = CollectionClass(mongo.db[collection]).find_one({'email': username})
-    if (user_obj!= None or email_obj!=None):
-        if json_data.get('password') == user_obj['password']:
-            logger.info('Valid Username')
-            return jsonify(message="Valid User"), 200
+    obj = CollectionClass(mongo.db[collection]).find_one({ '$or': [ { 'username':username }, { 'email':username } ] })
+    if (obj!=None):
+        if json_data.get('password') == obj['password']:
+            logger.info('User Credentials Authentication Successful')
+            return jsonify(message="User Credentials Authentication Successful"), 200
         else:
             logger.warning('Wrong Password')
-            return jsonify(message="Wrong Password"),400
+            return jsonify(message="Invalid Username or Password"),400
     else:
         logger.info('Invalid Username')
-        return jsonify(message="Invalid Username"), 400
+        return jsonify(message="Invalid Username or Password"), 400
  
 
 #Sample HTTP error handling

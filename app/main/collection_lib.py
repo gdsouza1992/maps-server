@@ -5,26 +5,29 @@ class CollectionClass(object):
         self.collection = collection_name
         self.logger = logging.getLogger(__name__)
 
+################################################################################################
+#   find_one : param keyword : Dict obj to search for in the collections
+#            : returns       : None if keyword not found else returns a dict where keyword was found
+#################################################################################################
     def find_one(self, keyword=None):
-        '''
-        :param keyword: Dict obj to search for in the collections
-        :return: 
-        '''
+
         self.logger.info('Trying to find {0} in DB'.format(keyword))
         return self.collection.find_one(keyword)
 
+################################################################################################
+#   find : param keyword : Dict obj to search for in the collections
+#        : returns       : all the docs pertaining to that collection if keyword=None
+#                          dict if keyword found and if keyword!=None else returns None
+#################################################################################################
     def find(self, keyword=None):
-        if self.count() == 0:
-            self.logger.info('Could not retrieve {0} in {1} collections. Returning False'.format(keyword, self.collection))
-            # print "No Docs found. Returning False"
-            return False
-        if keyword is not None:
-            self.logger.info('Executing find only for {0}'.format(keyword))
-            return list(self.collection.find('%s' % keyword))
 
         self.logger.info('Trying to do similar to SELECT *')
-        return list(self.collection.find())
+        return list(self.collection.find(filter='%s' % keyword))
 
+################################################################################################
+#   insert_many : param new_doc : document to be added to collection
+#               : returns       : cursor if success else returns False
+#################################################################################################
     def insert_many(self, new_doc):
         # if type(new_doc) is not dict:
         #   raise Exception('document type should be dict')
@@ -38,13 +41,25 @@ class CollectionClass(object):
 
         return return_value
 
+################################################################################################
+#   count : params None
+#         : returns : total number of docs in a collection
+#################################################################################################
     def count(self):
         return self.collection.count()
 
+################################################################################################
+#   sort_ascending : params key : Key on which the docs in collection will to be sorted
+#                  : returns    : Sorted collection of docs in acsending order based on key
+#################################################################################################
     def sort_ascending(self, key):
         self.logger.info('Sort the result in ascending order for {0}'.format(key))
         return list(self.collection.find().sort("%s" % key, 1))
 
+################################################################################################
+#   sort_descending : params key : Key on which the docs in collection will to be sorted
+#                   : returns    : Sorted collection of docs in descending order based on key
+#################################################################################################
     def sort_descending(self, key):
         self.logger.info('Sort the result in ascending order for {0}'.format(key))
         return list(self.collection.find().sort("%s" % key, -1))
