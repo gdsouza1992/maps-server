@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_pymongo import PyMongo
-from config import config_by_name
+from .config import config_by_name
 import logging
 
 
@@ -15,7 +15,7 @@ def create_logger():
     # logger_handler.setLevel(logging.DEBUG)
 
     # Create a Formatter for formatting the log messages
-    logger_formatter = logging.Formatter('[%(asctime)s]:[%(levelname)s]:%(name)s: %(message)s')
+    logger_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(name)s: %(message)s')
     logger_handler.setFormatter(logger_formatter)
 
     # Add the Handler to the Logger

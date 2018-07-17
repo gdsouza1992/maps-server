@@ -1,0 +1,4 @@
+Flask==1.0.2
+Flask-PyMongo==2.0.0
+Flask-Script==2.0.6
+requests==2.19.1

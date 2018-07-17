@@ -11,12 +11,13 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from app.main import create_app, get_collection_map, create_logger
 from app.main.collection_lib import CollectionClass
 
+
 app, mongo = create_app('dev')
 
 logger = create_logger()
 
 try:
-    print mongo.db.collection_names()
+    logger.debug("Trying to test if DB can be connected or not by displaying all the collection names: {0}".format(mongo.db.collection_names()))
 except Exception as e:
     logger.exception("Could not connect to MongoDB Exiting... {0}".format(e))
     # print "Could not connect to MongoDB: {0}".format(e)
@@ -28,16 +29,16 @@ manager = Manager(app)
 @app.route('/getAll', methods=['GET'])
 def find_data():
 
-    print dir(mongo.db)
+    # print dir(mongo.db)
     collection = mongo.db.list_collection_names()[0]
     document = mongo.db[collection].find()
     demo_data = mongo.db[collection].find({'place': 'San Francisco'})
     # print demo_data,"DEMO"
     # print list(demo_data),"&&&"
     data = list(demo_data)
-    print len(data), "**{0}**".format(data), len(list(demo_data))
-    for each_data in data:
-        print each_data['_id'].generation_time, "*****"
+    # print len(data), "**{0}**".format(data), len(list(demo_data))
+    # for each_data in data:
+    #     print each_data['_id'].generation_time, "*****"
 
     # print list(document.sort('zipcode',1))
 
@@ -103,4 +104,6 @@ def not_found(error):
 
 
 if __name__ == '__main__':
+    #Entry point
+
     manager.run()

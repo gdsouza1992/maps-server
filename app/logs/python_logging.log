@@ -124,3 +124,29 @@ ServerSelectionTimeoutError: blogit-demo.westus2.cloudapp.azure.com:27018: [Errn
 [2018-07-15 20:57:10,201]:[INFO]:app.main.collection_lib: Trying to find {'username': u'garethdsouza'} in DB
 [2018-07-15 20:57:10,244]:[INFO]:app.main.collection_lib: Trying to find {'email': u'garethdsouza'} in DB
 [2018-07-15 20:57:10,283]:[INFO]:app.main: Valid Username
+[2018-07-17 07:03:50,527]:[INFO]:app.main: Completed configuring logger()!
+[2018-07-17 07:03:50,609]:[DEBUG]:app.main: Trying to test if DB can be connected or not by displaying all the collection names
+[2018-07-17 07:04:02,638]:[INFO]:app.main: Completed configuring logger()!
+[2018-07-17 07:04:02,650]:[DEBUG]:app.main: Trying to test if DB can be connected or not by displaying all the collection names
+[2018-07-17 07:04:20,783]:[INFO]:app.main: Completed configuring logger()!
+[2018-07-17 07:04:20,796]:[DEBUG]:app.main: Trying to test if DB can be connected or not by displaying all the collection names
+[2018-07-17 07:04:21,043]:[INFO]:app.main: Completed configuring logger()!
+[2018-07-17 07:04:21,056]:[DEBUG]:app.main: Trying to test if DB can be connected or not by displaying all the collection names
+[2018-07-17 07:06:37,963]:[INFO]:app.main: Completed configuring logger()!
+[2018-07-17 07:06:37,996]:[DEBUG]:app.main: Trying to test if DB can be connected or not by displaying all the collection names
+[2018-07-17 07:06:54,778]:[INFO]:app.main: Completed configuring logger()!
+[2018-07-17 07:06:54,791]:[DEBUG]:app.main: Trying to test if DB can be connected or not by displaying all the collection names
+[2018-07-17 07:10:18,189]:[INFO]:app.main: Completed configuring logger()!
+[2018-07-17 07:10:18,316]:[DEBUG]:app.main: Trying to test if DB can be connected or not by displaying all the collection names
+[2018-07-17 07:10:18,579]:[INFO]:app.main: Completed configuring logger()!
+[2018-07-17 07:10:18,592]:[DEBUG]:app.main: Trying to test if DB can be connected or not by displaying all the collection names
+[2018-07-17 07:10:29,686]:[DEBUG]:app.main: Welcome to SIGN IN page
+[2018-07-17 07:10:29,688]:[INFO]:app.main.collection_lib: Trying to find {'$or': [{'username': 'garethdsouza'}, {'email': 'garethdsouza'}]} in DB
+[2018-07-17 07:10:29,689]:[INFO]:app.main: User Credentials Authentication Successful
+[2018-07-17 07:10:40,267]:[DEBUG]:app.main: Welcome to SIGN IN page
+[2018-07-17 07:10:40,268]:[INFO]:app.main.collection_lib: Trying to find {'$or': [{'username': 'garet1hdsouza'}, {'email': 'garet1hdsouza'}]} in DB
+[2018-07-17 07:10:40,270]:[INFO]:app.main: Invalid Username
+[2018-07-17 07:11:23,435] [INFO] app.main: Completed configuring logger()!
+[2018-07-17 07:11:23,452] [DEBUG] app.main: Trying to test if DB can be connected or not by displaying all the collection names
+[2018-07-17 07:12:04,245] [INFO] app.main: Completed configuring logger()!
+[2018-07-17 07:12:04,258] [DEBUG] app.main: Trying to test if DB can be connected or not by displaying all the collection names: ['demo-user', 'demo_collections']

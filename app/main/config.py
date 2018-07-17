@@ -12,12 +12,12 @@ def get_db_info(filename):
         password = data["password"]
         db = data["db"]
 
-        print "Was able to successfully parse the file and " \
-              "extract the username, password and db-name"
+        print ("Was able to successfully parse the file and " \
+              "extract the username, password and db-name")
 
     except:
-        print "Could not find username, password and db-name in the file. " \
-               "Please check the {0} again".format(filename)
+        print ("Could not find username, password and db-name in the file. " \
+               "Please check the {0} again").format(filename)
         user = None
         password = None
         db = None

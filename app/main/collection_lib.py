@@ -36,7 +36,7 @@ class CollectionClass(object):
             self.collection.insert_many(new_doc)
         except Exception as e:
             self.logger.exception('Error while inserting too many docs. {0}'.format(e))
-            print e
+            # print e
             return_value = False
 
         return return_value
