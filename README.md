@@ -1,5 +1,4 @@
 # maps-server
-python server for maps
 How to run Python API?
 
 1. It's better to use virtual environment, so you can keep it isolated from the system python. Python3 is preferred
