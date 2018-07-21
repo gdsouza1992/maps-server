@@ -10,9 +10,11 @@ How to run Python API?
       
 2. cd blogit && git clone https://github.com/gdsouza1992/maps-server.git
 
-3. cd maps-server/app && python controller.py runserver --port 7777 --host 0.0.0.0
+3. pip install -r maps-server/requirements.txt    OR    pip3 install -r maps-server/requirements.txt
 
-4. Logs are located at maps-server/app/logs/
+4. cd maps-server/app && python controller.py runserver --port 7777 --host 0.0.0.0
+
+5. Logs are located at maps-server/app/logs/
 
 
 Password to access the DB is present /etc/blog-it/mongodb-passwd in the following format
