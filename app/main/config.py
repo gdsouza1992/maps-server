@@ -1,8 +1,6 @@
-import os
 import json
+from app.main import logger
 
-
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 def get_db_info(filename):
     with open (filename) as file_handle:
@@ -12,12 +10,12 @@ def get_db_info(filename):
         password = data["password"]
         db = data["db"]
 
-        print ("Was able to successfully parse the file and " \
-              "extract the username, password and db-name")
+        logger.debug("Was able to successfully parse the file and "
+              "extract the username, password and db-name from {0}".format(filename))
 
     except:
-        print ("Could not find username, password and db-name in the file. " \
-               "Please check the {0} again").format(filename)
+        logger.error("Could not find username, password and db-name in the file. "
+               "Please check the {0} again".format(filename))
         user = None
         password = None
         db = None
