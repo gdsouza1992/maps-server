@@ -1,27 +1,36 @@
 from flask import Flask
-from flask_pymongo import PyMongo
-from .config import config_by_name
+from flask_pymongo import PyMongo, pymongo
+
 import logging
+import os
+
+class LogCreate():
+    def __init__(self):
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
+
+        # Get the root directory aka base_dir
+        base_dir = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/..")
+
+        # Create the Handler for logging data to a file
+        logger_handler = logging.FileHandler('{0}/logs/python_logging.log'.format(base_dir))
+        logger_handler.setLevel(logging.DEBUG)
+
+        # Create a Formatter for formatting the log messages
+        logger_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(module)s: %(message)s')
+        logger_handler.setFormatter(logger_formatter)
+
+        # Add the Handler to the Logger
+        self.logger.addHandler(logger_handler)
+        # logger.info('Completed configuring logger()!')
+
+    def get_logger(self):
+        return self.logger
 
 
-# def create_logger():
-# Create the Logger
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
-# Create the Handler for logging data to a file
-logger_handler = logging.FileHandler('logs/python_logging.log')
-# logger_handler.setLevel(logging.DEBUG)
-
-# Create a Formatter for formatting the log messages
-logger_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(module)s: %(message)s')
-logger_handler.setFormatter(logger_formatter)
-
-# Add the Handler to the Logger
-logger.addHandler(logger_handler)
-logger.info('Completed configuring logger()!')
-
-# return logger
+log = LogCreate()
+logger = log.get_logger()
+logger.debug("Successfully completed the logging configurations")
 
 collection_map = {
     "article": "demo-article",
@@ -29,12 +38,11 @@ collection_map = {
     "user": "demo-user"
 }
 
+from .config import config_by_name
 # def create_app(config_name):
 app = Flask(__name__)
 app.config.from_object(config_by_name['dev'])
-# app.register_blueprint(user_mod)
 mongo = PyMongo(app)
-# return app, mongo
 
 
 def get_collection_map(key):

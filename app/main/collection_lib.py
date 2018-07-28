@@ -31,6 +31,7 @@ class CollectionClass(object):
     def insert_many(self, new_doc):
         # if type(new_doc) is not dict:
         #   raise Exception('document type should be dict')
+        self.logger.info('Inserting documents')
         return_value = True
         try:
             self.collection.insert_many(new_doc)
