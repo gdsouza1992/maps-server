@@ -21,7 +21,7 @@ How to run Python API?
 5. Logs are located at *maps-server/app/logs/*
 
 
-Password to access the DB is present /etc/blog-it/mongodb-passwd in the following format
+Password to access the DB is present /etc/blog-it/mongodb-passwd.json in the following format
 
 {
   "user": "app",
