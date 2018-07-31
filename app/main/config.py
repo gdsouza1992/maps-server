@@ -1,6 +1,6 @@
 import json
 from app.main import logger
-
+from cryptography.fernet import Fernet
 
 def get_db_info(filename):
     with open (filename) as file_handle:
@@ -9,7 +9,8 @@ def get_db_info(filename):
         user = data["user"]
         password = data["password"]
         db = data["db"]
-
+        #key = data["cipherkey"]
+        key = b'cIWvGNpnOMk-R2u8rSSaC3Jfpy9vmE9JIHtR5OV8LdY='
         logger.debug("Was able to successfully parse the file and "
               "extract the username, password and db-name from {0}".format(filename))
 
@@ -20,14 +21,14 @@ def get_db_info(filename):
         password = None
         db = None
 
-    return user, password, db
+    return user, password, db,key
 
 
 class Config:
     # SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
     DEBUG = False
     FILENAME = "/etc/blog-it/mongodb-passwd"
-    MONGO_USERNAME, MONGO_PASSWORD, MONGO_DBNAME = get_db_info(FILENAME)
+    MONGO_USERNAME, MONGO_PASSWORD, MONGO_DBNAME,MONGO_CIPHERKEY = get_db_info(FILENAME)
     MONGO_HOST = "blogit-demo.westus2.cloudapp.azure.com"
     MONGO_PORT = 27018
     MONGO_AUTH_SOURCE = MONGO_DBNAME

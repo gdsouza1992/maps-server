@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_pymongo import PyMongo, pymongo
 
+#from .config import config_by_name,Config
+from cryptography.fernet import Fernet
 import logging
 import os
 import errno
@@ -46,8 +48,8 @@ collection_map = {
     "place": "demo-place",
     "user": "demo-user"
 }
-
-from .config import config_by_name
+from .config import config_by_name,Config
+cipher_obj = Fernet(Config.MONGO_CIPHERKEY)
 # def create_app(config_name):
 app = Flask(__name__)
 app.config.from_object(config_by_name['dev'])
