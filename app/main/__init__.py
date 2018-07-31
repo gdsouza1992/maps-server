@@ -3,6 +3,7 @@ from flask_pymongo import PyMongo, pymongo
 
 import logging
 import os
+import errno
 
 class LogCreate():
     def __init__(self):
@@ -11,6 +12,7 @@ class LogCreate():
 
         # Get the root directory aka base_dir
         base_dir = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/..")
+        self.mkdir("{0}/logs".format(base_dir))
 
         # Create the Handler for logging data to a file
         logger_handler = logging.FileHandler('{0}/logs/python_logging.log'.format(base_dir))
@@ -26,6 +28,13 @@ class LogCreate():
 
     def get_logger(self):
         return self.logger
+
+    def mkdir(self, base_dir):
+        try:
+            os.makedirs(base_dir)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                self.logger.error("unable to create {0} directory due to the following error {1}".format(base_dir, e))
 
 
 log = LogCreate()
