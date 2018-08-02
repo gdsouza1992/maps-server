@@ -8,6 +8,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from app.main import logger, app, mongo
 from app.views.users import user_mod
 
+from flask_cors import cross_origin
+
 app.register_blueprint(user_mod)
 
 try:
@@ -20,6 +22,7 @@ manager = Manager(app)
 
 
 @app.route('/getAll', methods=['GET'])
+@cross_origin()
 def find_data():
 
     # print dir(mongo.db)

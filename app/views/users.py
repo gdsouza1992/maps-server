@@ -3,6 +3,9 @@ from app.main import logger, get_collection_map, mongo
 import json
 from app.main.collection_lib import CollectionClass
 user_mod = Blueprint('user', __name__)
+from flask_cors import CORS
+
+CORS(user_mod, resources={r"/*": {"origins": "*"}})
 
 
 #####################################################################################################
