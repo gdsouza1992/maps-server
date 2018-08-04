@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.main import logger, get_collection_map, mongo
+from app.main import logger, get_collection_map, mongo, cipher_obj
 import json
 from app.main.collection_lib import CollectionClass
 user_mod = Blueprint('user', __name__)
@@ -22,7 +22,7 @@ def signup():
     username = json_data.get('username', None)
     email_id = json_data.get('email', None)
     password = json_data.get('password', None)
-
+    json_data["password"] = cipher_obj.encrypt(bytes(password,'utf-8')) 
     # Check if the arguments supplied are correct. Also check the contents of the arguments
     if username is "" or password is "" or email_id is "":
         logger.debug("Either Username or Email-ID or Password is NULL")
@@ -77,7 +77,8 @@ def signin():
     # Query the DB for appropriate keyword and return accordingly
     db_obj = CollectionClass(mongo.db[collection]).find_one({'$or': [{'username': user}, {'email': user}]})
     if db_obj is not None:
-        if json_data.get('password') == db_obj['password']:
+        decrypted_password = cipher_obj.decrypt(db_obj['password']).decode('utf-8')
+        if json_data.get('password') == decrypted_password:
             logger.info('User Credentials Authentication Successful')
             return jsonify(message="User Credentials Authentication Successful"), 200
         else:
