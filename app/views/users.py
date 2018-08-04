@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.main import logger, get_collection_map, mongo,cipher_obj
+from app.main import logger, get_collection_map, mongo, cipher_obj
 import json
 from app.main.collection_lib import CollectionClass
 user_mod = Blueprint('user', __name__)
