@@ -21,8 +21,19 @@ class CollectionClass(object):
 #################################################################################################
     def find(self, keyword=None):
 
-        self.logger.info('Trying to do similar to SELECT *')
-        return list(self.collection.find(filter='%s' % keyword))
+        self.logger.info('Trying to fetch the document for {0}'.format(keyword))
+        return list(self.collection.find(filter=keyword))
+
+################################################################################################
+#   insert : param new_doc : document to be added to collection
+#          : returns       : cursor if success else returns False
+#################################################################################################
+    def insert(self, new_doc):
+        # if type(new_doc) is not dict:
+        #   raise Exception('document type should be dict')
+        self.logger.info('Inserting single document {0}'.format(new_doc))
+        self.collection.insert(new_doc)
+
 
 ################################################################################################
 #   insert_many : param new_doc : document to be added to collection
@@ -31,13 +42,12 @@ class CollectionClass(object):
     def insert_many(self, new_doc):
         # if type(new_doc) is not dict:
         #   raise Exception('document type should be dict')
-        self.logger.info('Inserting documents')
+        self.logger.info('Inserting multiple documents {0}'.format(new_doc))
         return_value = True
         try:
             self.collection.insert_many(new_doc)
         except Exception as e:
             self.logger.exception('Error while inserting too many docs. {0}'.format(e))
-            # print e
             return_value = False
 
         return return_value

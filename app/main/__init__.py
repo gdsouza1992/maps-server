@@ -44,7 +44,7 @@ logger = log.get_logger()
 logger.debug("Successfully completed the logging configurations")
 
 collection_map = {
-    "article": "demo-article",
+    "article": "demo-articles",
     "place": "demo-place",
     "user": "demo-user"
 }

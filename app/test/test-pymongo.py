@@ -29,6 +29,7 @@ def create_index():
     collection_with_index = "test_with_index"
     log.debug("Trying To create index for {0}".format(collection_with_index))
     print (mongo.db[collection_with_index].create_index([("username", 1)], unique=True))
+    print (mongo.db[collection_with_index].create_index([("email", 1)]))
 
 def output():
     collection_without_index = "test_without_index"
@@ -64,9 +65,15 @@ def test_unique():
         print ("{0}".format(e))
 
 
+def populate_articles_collection():
+    # "5b4a9bb171325e2dba25e78e" --> kapil
+    # "5b4aa02e71325e2ee7b566e6" --> hansal
+    # "5b4ab0d52db4283921ab7b7a" ---> gareth
+    pass
+
 if __name__ == '__main__':
     # populate_db()
     create_index()
     # output()
-    test_unique()
-    output()
+    # test_unique()
+    # output()

@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.main import logger, get_collection_map, mongo, cipher_obj
+from app.main import logger, get_collection_map, mongo, cipher_obj, pymongo
 import json
 from app.main.collection_lib import CollectionClass
 user_mod = Blueprint('user', __name__)
@@ -16,13 +16,16 @@ CORS(user_mod, resources={r"/*": {"origins": "*"}})
 def signup():
     logger.debug('Welcome to SIGN UP page')
 
+
+
     # Parse the request arguments
     collection = get_collection_map('user')
     json_data = json.loads(request.data)
     username = json_data.get('username', None)
     email_id = json_data.get('email', None)
     password = json_data.get('password', None)
-    json_data["password"] = cipher_obj.encrypt(bytes(password,'utf-8')) 
+    json_data["password"] = cipher_obj.encrypt(bytes(password,'utf-8'))
+
     # Check if the arguments supplied are correct. Also check the contents of the arguments
     if username is "" or password is "" or email_id is "":
         logger.debug("Either Username or Email-ID or Password is NULL")
@@ -39,14 +42,16 @@ def signup():
         return jsonify(message="Incorrect number of keys. Expected: username/email/password  Got: {0}".format(json_data.keys())), 400
 
     # Query the DB for appropriate keyword and return accordingly
-    if CollectionClass(mongo.db[collection]).find_one({'username': username}) is None:
-        if CollectionClass(mongo.db[collection]).insert_many([json_data]):
-            return jsonify(username=username, email=email_id), 200
-        else:
-            return jsonify(status="Bad"), 500
-    else:
-        logger.info('Username already taken, please choose another one')
+    try:
+        CollectionClass(mongo.db[collection]).insert([json_data])
+        logger.info("Successfully added {0} in the DB".format(username))
+        return jsonify(message="{0} added successfully".format(username)), 200
+    except pymongo.errors.DuplicateKeyError as e:
+        logger.exception('{0}'.format(e))
         return jsonify(message="Username already taken, please choose another one"), 400
+    except Exception as e:
+        logger.exception('{0}'.format(e))
+        return jsonify(message="Server Exception. Try again in some time"), 500
 
 
 #####################################################################################################

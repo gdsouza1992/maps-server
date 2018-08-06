@@ -7,10 +7,13 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from app.main import logger, app, mongo
 from app.views.users import user_mod
+from app.views.articles import articles_mod
 
 from flask_cors import cross_origin
 
 app.register_blueprint(user_mod)
+app.register_blueprint(articles_mod)
+
 
 try:
     logger.debug("Trying to test if DB can be connected or not by displaying all the collection names: {0}".format(mongo.db.collection_names()))
