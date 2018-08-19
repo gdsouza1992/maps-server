@@ -9,20 +9,23 @@ class CollectionClass(object):
 #   find_one : param keyword : Dict obj to search for in the collections
 #            : returns       : None if keyword not found else returns a dict where keyword was found
 #################################################################################################
-    def find_one(self, keyword=None):
+    def find_one(self, filter=None):
 
-        self.logger.info('Trying to find {0} in DB'.format(keyword))
-        return self.collection.find_one(keyword)
+        self.logger.info('Trying to find {0} in DB'.format(filter))
+        return self.collection.find_one(filter=filter)
 
 ################################################################################################
 #   find : param keyword : Dict obj to search for in the collections
 #        : returns       : all the docs pertaining to that collection if keyword=None
 #                          dict if keyword found and if keyword!=None else returns None
 #################################################################################################
-    def find(self, keyword=None):
+    def find(self, filter=None, projection=None, skip=0, limit=0,sort=None,batch_size=0,
+             max_time_ms=None, max=None, min=None, return_key=False):
 
-        self.logger.info('Trying to fetch the document for {0}'.format(keyword))
-        return list(self.collection.find(filter=keyword))
+        self.logger.info('Trying to fetch the document for {0}'.format(filter))
+        return list(self.collection.find(filter=filter, projection=projection, skip=skip, limit=limit,sort=sort,
+                                         batch_size=batch_size,max_time_ms=max_time_ms, max=max, min=min,
+                                         return_key=return_key))
 
 ################################################################################################
 #   insert : param new_doc : document to be added to collection

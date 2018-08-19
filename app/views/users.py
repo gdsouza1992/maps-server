@@ -16,8 +16,6 @@ CORS(user_mod, resources={r"/*": {"origins": "*"}})
 def signup():
     logger.debug('Welcome to SIGN UP page')
 
-
-
     # Parse the request arguments
     collection = get_collection_map('user')
     json_data = json.loads(request.data)
@@ -80,7 +78,7 @@ def signin():
         return jsonify(message="Expected: username/password  Got: {0}".format(json_data.keys())), 400
 
     # Query the DB for appropriate keyword and return accordingly
-    db_obj = CollectionClass(mongo.db[collection]).find_one({'$or': [{'username': user}, {'email': user}]})
+    db_obj = CollectionClass(mongo.db[collection]).find_one(filter={'$or': [{'username': user}, {'email': user}]})
     if db_obj is not None:
         decrypted_password = cipher_obj.decrypt(db_obj['password']).decode('utf-8')
         if json_data.get('password') == decrypted_password:

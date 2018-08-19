@@ -18,10 +18,10 @@ def get_articles():
     user_collection = get_collection_map('user')
 
     username = request.args.get('username')
-    user_obj = CollectionClass(mongo.db[user_collection]).find_one({'username' : username})
+    user_obj = CollectionClass(mongo.db[user_collection]).find_one(filter={'username' : username})
     if user_obj is None:
         logger.error('Username: {0} does not exist.'.format(user_obj))
         return jsonify(message='Username: {0} does not exist.'.format(user_obj)), 400
     else:
-        article_obj = CollectionClass(mongo.db[article_collection]).find({'article_owner_id' : username})
+        article_obj = CollectionClass(mongo.db[article_collection]).find(filter={'article_owner_id' : username})
         return dumps(article_obj), 200
